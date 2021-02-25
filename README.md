@@ -1,2 +1,3 @@
 # Doodles
-Random doodles
+
+[Letter generator](/LetterGenerator.html)
