@@ -1,3 +1,3 @@
 # Doodles
 
-[Letter generator](/LetterGenerator.html)
+[Letters generator](./LettersGenerator.html)
