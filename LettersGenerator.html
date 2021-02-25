@@ -1,0 +1,69 @@
+<html>
+  <head>
+    <style>
+        html, body, p {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 100%;
+            font: inherit;
+            vertical-align: baseline;
+            line-height: 1;
+        }
+
+        #wrapper {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            background-color: #DDD;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #letter {
+            color: #333;
+            font-size: 30vh;
+        }
+
+        hr {
+            position: absolute;
+            width: 30%;
+        }
+
+        #h1 {
+            top: calc(50% + 10vh);
+        }
+
+        #h2 {
+            top: calc(50% - 5vh);
+        }
+      </style>
+  </head>
+  <body>
+
+  <div id="wrapper">
+    <hr id='h1'>
+    <hr id='h2'>
+      <p id=letter>
+          A
+      </p>
+
+  </div>
+
+  <script lang="javascript">
+      const letters = "abcdefghijklmnopqrstuwxyząęśćłóńżźABCDEFGHIJKLMNOPQRSTUWXYZŻŚĆ";
+      var current = 0;
+
+      function generate() {
+          var i = Math.floor(Math.random() * letters.length);
+          document.getElementById('letter').innerHTML = letters[i];
+      }
+
+      document.addEventListener('keypress', function (e) {
+        generate();
+      });
+
+      generate();
+  </script>
+  </body>
+</html>
