@@ -1,7 +1,10 @@
 <html>
-  <head>
+
+<head>
     <style>
-        html, body, p {
+        html,
+        body,
+        p {
             margin: 0;
             padding: 0;
             border: 0;
@@ -20,14 +23,30 @@
             align-items: center;
         }
 
+        #content {
+            width: 30%;
+            display: flex;
+            justify-content: center;
+            position:relative;
+        }
+
         #letter {
             color: #333;
             font-size: 30vh;
+
+        }
+
+        #counter {
+            color: #999;
+            position: absolute;
+            top: 1vh;
+            right: 1vh;
+            font-size: 3vh
         }
 
         hr {
             position: absolute;
-            width: 30%;
+            width: 100%;
         }
 
         #h1 {
@@ -37,33 +56,49 @@
         #h2 {
             top: calc(50% - 5vh);
         }
-      </style>
-  </head>
-  <body>
+    </style>
+</head>
 
-  <div id="wrapper">
-    <hr id='h1'>
-    <hr id='h2'>
-      <p id=letter>
-          A
-      </p>
+<body>
+    <div id="wrapper">
+        <div id="content">
+            <hr id='h1'>
+            <hr id='h2'>
+            <p id=letter>
+                A
+            </p>
+        </div>
+        <div id="counter"></div>
+    </div>
 
-  </div>
+    <script lang="javascript">
+        const vowels = "aeiouyąęó".split('');
+        const consonants = "bcdfghjklmnpqrstwxzśćłńżź".split('');
 
-  <script lang="javascript">
-      const letters = "abcdefghijklmnopqrstuwxyząęśćłóńżźABCDEFGHIJKLMNOPQRSTUWXYZŻŚĆ";
-      var current = 0;
+        const letters = [...vowels, ...consonants, ...vowels.map(v => v.toUpperCase()), ...consonants.map(c => c.toUpperCase())];
 
-      function generate() {
-          var i = Math.floor(Math.random() * letters.length);
-          document.getElementById('letter').innerHTML = letters[i];
-      }
+        var current = 0;
+        var index = 0;
+        var count = 0;
 
-      document.addEventListener('keypress', function (e) {
+        function generate() {
+            var newIndex = index;
+            while (newIndex == index) {
+                newIndex = Math.floor(Math.random() * letters.length);
+            }
+
+            count++;
+            index = newIndex;
+            document.getElementById('letter').innerHTML = letters[index];
+            document.getElementById('counter').innerHTML = count;
+        }
+
+        document.addEventListener('keypress', function (e) {
+            generate();
+        });
+
         generate();
-      });
+    </script>
+</body>
 
-      generate();
-  </script>
-  </body>
 </html>
