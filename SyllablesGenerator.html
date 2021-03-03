@@ -32,9 +32,13 @@
         }
 
         #letter {
-            color: #333;
+            color: #bbb;
             font-size: 30vh;
 
+        }
+
+        #letter .active {
+            color: #333;
         }
 
         #counter {
@@ -73,36 +77,84 @@
     </div>
 
     <script lang="javascript">
-        const vowels = "aeiouyąęó".split('');
-        const consonants = "bcdfghjklmnpqrstwxzśćłńżź".split('');
+        const active = 'active';
+        const words = [ 'To-mek', 'A-na-sta-zja', 'Mar-cin', 'A-u-rel-ka']
 
-        const letters = [...vowels, ...consonants, ...vowels.map(v => v.toUpperCase()), ...consonants.map(c => c.toUpperCase())];
-
-        var current = 0;
-        var index = 0;
+        var currentSyllabe = 0;
+        var currentWordMaxSyllabes = 0;
         var count = 0;
 
-        function randomSort(a, b) {
-            return 0.5 - Math.random();
+        var currentSYllabes = [];
+
+        function getNextWord() {
+            var word = words[Math.floor(Math.random() * words.length)];
+            return word.split('-');
+        }
+
+        function createWordHtml(syllabes) {
+            var retVal = [];
+            for (var i = 0; i < syllabes.length; i++) {
+                var el = document.createElement("span");
+                el.id = `syllabe-${i}`
+                el.classList = `syllabe`;
+                el.innerHTML = syllabes[i];
+                retVal.push(el);
+            }
+
+            return retVal;
         }
 
         function generate() {
-            const consonantsCount = Math.random() < 0.75 ? 1 : 2;
-            const vovel = vowels[Math.floor(Math.random() * vowels.length)];
-            const allLetters = [...Array(consonantsCount).keys()].map(v => consonants[Math.floor(Math.random() * consonants.length)]);
-
-            allLetters.push(vovel)
-
-            const syllabel = allLetters.sort(randomSort);
-
+            var syllabes = getNextWord();
+            currentWordMaxSyllabes = syllabes.length;
+            currentSyllabe = 0;
             count++;
-            document.getElementById('letter').innerHTML = allLetters.join('');
-            document.getElementById('counter').innerHTML = count;
+
+            var elements = createWordHtml(syllabes);
+            document.getElementById('letter').innerHTML = '';
+
+            elements.forEach(element => {
+                document.getElementById('letter').appendChild(element);
+            });
+
+            document.getElementById(`syllabe-0`).classList.add(active);
         }
 
-        document.addEventListener('keypress', function (e) {
-            generate();
-        });
+        function moveRight() {
+            document.getElementById(`syllabe-${currentSyllabe}`).classList.remove(active);
+            if (currentSyllabe < currentWordMaxSyllabes - 1) {
+                currentSyllabe++;
+            }
+
+            document.getElementById(`syllabe-${currentSyllabe}`).classList.add(active);
+        }
+
+        function moveLeft() {
+            document.getElementById(`syllabe-${currentSyllabe}`).classList.remove(active);
+            if (currentSyllabe > 0) {
+                currentSyllabe--;
+            }
+
+            document.getElementById(`syllabe-${currentSyllabe}`).classList.add(active);
+        }
+
+        function checkKey(e) {
+            var keyCode = e.keyCode;
+            console.log(keyCode);
+            switch(keyCode) {
+                case 39: 
+                    moveRight();
+                    break;
+                case 37:
+                    moveLeft();
+                    break;
+                case 40: 
+                    generate();
+                    break;
+            }
+        }
+
+        document.onkeydown = checkKey;
 
         generate();
     </script>
