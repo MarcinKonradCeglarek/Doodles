@@ -34,9 +34,9 @@
         }
 
         #letter {
-            color: #bbb;
-            font-size: 30vh;
-
+            color: rgba(0, 0, 0, 0.1);
+            font-size: 20vw;
+            z-index: 20;
         }
 
         #letter .active {
@@ -50,22 +50,9 @@
         #counter {
             color: #999;
             position: absolute;
-            top: 1vh;
-            right: 1vh;
-            font-size: 3vh
-        }
-
-        hr {
-            position: absolute;
-            width: 100%;
-        }
-
-        #h1 {
-            top: calc(50% + 10vh);
-        }
-
-        #h2 {
-            top: calc(50% - 5vh);
+            top: 1vw;
+            right: 1vw;
+            font-size: 3vw
         }
     </style>
 </head>
@@ -73,8 +60,6 @@
 <body>
     <div id="wrapper">
         <div id="content">
-            <hr id='h1'>
-            <hr id='h2'>
             <p id=letter>
                 A
             </p>
