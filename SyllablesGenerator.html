@@ -2,6 +2,7 @@
 
 <head>
     <title>Syllables Generator</title>
+    <script type="text/javascript" src="dictionaryPL.js"></script>
     <style>
         html,
         body,
@@ -41,6 +42,10 @@
             color: #333;
         }
 
+        #letter .syllabe {
+            margin: 5px 0;
+        }
+
         #counter {
             color: #999;
             position: absolute;
@@ -78,11 +83,10 @@
 
     <script lang="javascript">
         const active = 'active';
-        const words = [ 'To-mek', 'A-na-sta-zja', 'Mar-cin', 'A-u-rel-ka']
 
         var currentSyllabe = 0;
         var currentWordMaxSyllabes = 0;
-        var count = 0;
+        var counter = 0;
 
         var currentSYllabes = [];
 
@@ -108,7 +112,7 @@
             var syllabes = getNextWord();
             currentWordMaxSyllabes = syllabes.length;
             currentSyllabe = 0;
-            count++;
+            counter++;
 
             var elements = createWordHtml(syllabes);
             document.getElementById('letter').innerHTML = '';
@@ -118,6 +122,7 @@
             });
 
             document.getElementById(`syllabe-0`).classList.add(active);
+            document.getElementById('counter').innerHTML = counter
         }
 
         function moveRight() {
