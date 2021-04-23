@@ -85,12 +85,31 @@
     <script lang="javascript">
         const active = 'active';
 
-        const min = 2;
-        const max = 6;
         var counter = 0;
 
         var currentExample = [];
         var isSolved = false;
+        const {min, max} = getBoundries();
+
+        function getBoundries() {
+            const params = new URLSearchParams(window.location.search);
+
+            const paramMin = parseInt(params.get("min"));
+            const paramMax = parseInt(params.get("max"));
+
+            const isParamMinValid = paramMin >= 0 && paramMin <=100;
+            const isParamMaxValid = paramMax >= 0 && paramMax <=100;
+
+            if (isParamMinValid && isParamMaxValid) {
+                return { min: Math.min(paramMin, paramMax), max: Math.max(paramMin, paramMax)}
+            }
+
+            if (isParamMaxValid && paramMax > 2) {
+                return { min: 2, max: paramMax }
+            }
+
+            return { min: 2, max: 6 };
+        }
 
         function getNextMultiplicationEquation() {
 
