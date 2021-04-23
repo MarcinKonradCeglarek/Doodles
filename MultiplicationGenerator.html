@@ -1,7 +1,7 @@
 <html>
 
 <head>
-    <title>Syllables Generator</title>
+    <title>Multiplication Generator</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <script type="text/javascript" src="dictionaryPL.js"></script>
@@ -31,12 +31,11 @@
         }
 
         #word {
-            color: rgba(0, 0, 0, 0.02);
+            color: rgba(0, 0, 0, 0);
             font-size: 20vw;
             z-index: 20;
             display: flex;
             justify-content: center;
-
         }
 
         #word .active {
@@ -86,67 +85,61 @@
     <script lang="javascript">
         const active = 'active';
 
-        var currentSyllabe = 0;
-        var currentWordMaxSyllabes = 0;
+        const min = 2;
+        const max = 6;
         var counter = 0;
 
-        var currentSYllabes = [];
+        var currentExample = [];
+        var isSolved = false;
 
-        function getNextWord() {
-            var word = words[Math.floor(Math.random() * words.length)];
-            return word.split('-');
+        function getNextMultiplicationEquation() {
+
+            var a = Math.floor(Math.random() * (max - min)) + min;
+            var b = Math.floor(Math.random() * (max - min)) + min;
+
+            return [`${a}•${b}=`, `${a*b}`];
         }
 
-        function createWordHtml(syllabes) {
+        function createExampleHtml(equation) {
             var retVal = [];
-            for (var i = 0; i < syllabes.length; i++) {
-                var el = document.createElement("span");
-                el.id = `syllabe-${i}`
-                el.classList = `syllabe`;
-                el.innerHTML = syllabes[i];
-                retVal.push(el);
-            }
+
+            var question = document.createElement("span");
+            question.id = `question`;
+            question.classList = `question`;
+            question.innerHTML = equation[0];
+            retVal.push(question);
+
+            var solution = document.createElement("span");
+            solution.id = 'solution'
+            solution.innerHTML = equation[1];
+            retVal.push(solution);
 
             return retVal;
         }
 
         function generate() {
-            var syllabes = getNextWord();
-            currentWordMaxSyllabes = syllabes.length;
-            currentSyllabe = 0;
+            var equation = getNextMultiplicationEquation();
+            isSolved = false;
             counter++;
 
-            var elements = createWordHtml(syllabes);
+            var elements = createExampleHtml(equation);
             document.getElementById('word').innerHTML = '';
 
             elements.forEach(element => {
                 document.getElementById('word').appendChild(element);
             });
 
-            document.getElementById(`syllabe-0`).classList.add(active);
+            document.getElementById(`question`).classList.add(active);
             document.getElementById('counter').innerHTML = counter
         }
 
         function moveRight() {
-            document.getElementById(`syllabe-${currentSyllabe}`).classList.remove(active);
-            if (currentSyllabe < currentWordMaxSyllabes - 1) {
-                currentSyllabe++;
-            }
-
-            document.getElementById(`syllabe-${currentSyllabe}`).classList.add(active);
-        }
-
-        function moveLeft() {
-            document.getElementById(`syllabe-${currentSyllabe}`).classList.remove(active);
-            if (currentSyllabe > 0) {
-                currentSyllabe--;
-            }
-
-            document.getElementById(`syllabe-${currentSyllabe}`).classList.add(active);
+            document.getElementById(`solution`).classList.add(active);
+            isSolved = true;
         }
 
         function next() {
-            if (currentSyllabe === currentWordMaxSyllabes - 1) {
+            if (isSolved) {
                 generate();
             }
             else {
@@ -159,9 +152,6 @@
             switch(keyCode) {
                 case 39:
                     moveRight();
-                    break;
-                case 37:
-                    moveLeft();
                     break;
                 case 40:
                     generate();
