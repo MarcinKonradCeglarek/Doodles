@@ -4,4 +4,4 @@
 
 [Syllables Generator](https://marcinkonradceglarek.github.io/Doodles/SyllablesGenerator.html)
 
-[Multiplication Generator](https://marcinkonradceglarek.github.io/Doodles/MultiplicationGenerator.html)
+[Multiplication Generator](https://marcinkonradceglarek.github.io/Doodles/MultiplicationGenerator.html?min=2&max=10)
