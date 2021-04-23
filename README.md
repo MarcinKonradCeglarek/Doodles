@@ -1,7 +1,7 @@
 # For polish reading learning (5-8 years old children)
 
-[Letters generator](/Doodles/LettersGenerator.html)
+[Letters generator](https://marcinkonradceglarek.github.io/Doodles/LettersGenerator.html)
 
-[Syllables Generator](/Doodles/SyllablesGenerator.html)
+[Syllables Generator](https://marcinkonradceglarek.github.io/Doodles/SyllablesGenerator.html)
 
-[Multiplication Generator](/Doodles/MultiplicationGenerator.html)
+[Multiplication Generator](https://marcinkonradceglarek.github.io/Doodles/MultiplicationGenerator.html)
